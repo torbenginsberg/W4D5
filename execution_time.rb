@@ -50,4 +50,22 @@ end
 
 def largest_contiguous_subsum_2(arr)
     i = 0
-    j = 0
+    j = 1
+    big_arr = arr[i..j].inject {|acc, ele| acc += ele}
+    while i < arr.length
+        k = arr[i..j].inject {|acc, ele| acc += ele}
+        big_arr = k if k > big_arr
+        if j != (arr.length - 1)
+            j += 1
+        else
+            i += 1
+        end
+    end
+
+    arr.each do |ele|
+        big_arr = ele if ele > big_arr
+    end
+    big_arr
+end
+list = [-5, -1, -3]
+p largest_contiguous_subsum_2(list) # => -1 (from [-1])
